@@ -1,0 +1,170 @@
+---
+name: Pipeline - Pull Request
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  # More info: https://github.com/GitGuardian/ggshield-action
+  gitguardian:
+    name: GitGuardian Scanner
+    runs-on: ubuntu-latest
+
+    steps:
+      # More info: https://github.com/step-security/harden-runner.
+      - name: Harden Runner
+        id: harden_runner
+        uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.gitguardian.com:443
+            github.com:443
+
+      - name: Checkout & Authentication
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: GitGuardian Scanner
+        uses: GitGuardian/gg-shield-action@e8eef84fc3419d2a7e7beb15ab96c95b3ce2da24
+        with:
+          args: -v --all-policies
+        env:
+          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
+          GITHUB_PUSH_BASE_SHA: ${{ github.event.before }}
+          GITHUB_PULL_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
+
+  # More info: https://github.com/actions/dependency-review-action
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      # More info: https://github.com/step-security/harden-runner.
+      - name: Harden Runner
+        id: harden_runner
+        uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4
+        with:
+          egress-policy: audit
+
+      # More info: https://github.com/actions/checkout.
+      - name: Checkout & Authentication
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f
+        with:
+          fetch-depth: 0
+
+      # More info: https://github.com/actions/dependency-review-action
+      - name: Dependency Review
+        uses: actions/dependency-review-action@0c155c5e8556a497adf53f2c18edabf945ed8e70
+        with:
+          config-file: "./.github/config/workflows/dependency-review.yml"
+
+  # More info: https://github.com/AlbertHernandez/working-label-action
+  working_label:
+    runs-on: ubuntu-latest
+    steps:
+      # More info: https://github.com/step-security/harden-runner.
+      - name: Harden Runner
+        id: harden_runner
+        uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4
+        with:
+          egress-policy: audit
+
+      # More info: https://github.com/peter-murray/workflow-application-token-action.
+      - name: Get token
+        id: get_token
+        uses: peter-murray/workflow-application-token-action@dc0413987a085fa17d19df9e47d4677cf81ffef3
+        with:
+          application_id: ${{ secrets.ID_WORKLABELBOT }}
+          application_private_key: ${{ secrets.ID_WORKLABELBOT }}
+
+      # More info: https://github.com/actions/checkout.
+      - name: Checkout & Authentication
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f
+        with:
+          token: ${{ steps.get_token.outputs.token }}
+          persist-credentials: false
+          fetch-depth: 0
+
+      # More info: https://github.com/AlbertHernandez/working-label-action
+      - name: Working Label
+        uses: AlbertHernandez/working-label-action@398809d95be33f8f631c0f02e1d0e8cd8fbf8e73
+        with:
+          work_in_progress_label: "type:🚧chore"
+          ready_to_review_label: "status:⌛awaiting-review"
+
+  # More info: https://github.com/pineapplelol/emojify-pr-title
+  emojify-pr-title:
+    runs-on: ubuntu-latest
+    needs: [gitguardian]
+
+    steps:
+      # More info: https://github.com/step-security/harden-runner.
+      - name: Harden Runner
+        id: harden_runner
+        uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4
+        with:
+          egress-policy: audit
+
+      # More info: https://github.com/peter-murray/workflow-application-token-action.
+      - name: Get token
+        id: get_token
+        uses: peter-murray/workflow-application-token-action@dc0413987a085fa17d19df9e47d4677cf81ffef3
+        with:
+          application_id: ${{ secrets.ID_EMOJIFYBOT }}
+          application_private_key: ${{ secrets.PEM_EMOJIFYBOT }}
+
+      # More info: https://github.com/actions/checkout.
+      - name: Checkout & Authentication
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f
+        with:
+          token: ${{ steps.get_token.outputs.token }}
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Emojify PR Title
+        uses: pineapplelol/emojify-pr-title@a380b02ff04e737a60066bcd0a8c45f1f7a1a709
+        with:
+          use-emoji-map: true
+          emoji-map: "https://raw.githubusercontent.com/habbaz-dev/github-template/main/.github/config/workflows/emoji-mapping.json"
+          require-space: true
+
+  # More info: https://github.com/hiwelo/new-dependencies-action
+  check_new_dependencies:
+    runs-on: ubuntu-latest
+    needs: [gitguardian]
+
+    steps:
+      # More info: https://github.com/step-security/harden-runner.
+      - name: Harden Runner
+        id: harden_runner
+        uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4
+        with:
+          egress-policy: audit
+
+      # More info: https://github.com/peter-murray/workflow-application-token-action.
+      - name: Get token
+        id: get_token
+        uses: peter-murray/workflow-application-token-action@dc0413987a085fa17d19df9e47d4677cf81ffef3
+        with:
+          application_id: ${{ secrets.ID_CHECKDEPSBOT }}
+          application_private_key: ${{ secrets.PEM_CHECKDEPSBOT }}
+
+      # More info: https://github.com/actions/checkout.
+      - name: Checkout & Authentication
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f
+        with:
+          token: ${{ steps.get_token.outputs.token }}
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Check for new dependencies
+        uses: hiwelo/new-dependencies-action@e4175e14484328f9ab56df91e420e90ad5031c08

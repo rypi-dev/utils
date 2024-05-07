@@ -1,0 +1,10 @@
+{
+  "extends": "@habbaz-dev/tsconfig/base.json",
+
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "./"
+  }
+}

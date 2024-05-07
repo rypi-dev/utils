@@ -1,0 +1,7 @@
+{
+  "extends": "@habbaz-dev/tsconfig/base.json",
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "typeRoots": ["node_modules/@types"]
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "@wr-projects/commitlint-config"
+  ]
+}

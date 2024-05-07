@@ -1,0 +1,50 @@
+---
+name: Pipeline - Create labels
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  # More info: https://github.com/EndBug/label-sync.
+  labels:
+    runs-on: ubuntu-latest
+
+    steps:
+      # More info: https://github.com/step-security/harden-runner.
+      - name: Harden Runner
+        id: harden_runner
+        uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
+            raw.githubusercontent.com:443
+
+      # More info: https://github.com/peter-murray/workflow-application-token-action.
+      - name: Get token
+        id: get_token
+        uses: peter-murray/workflow-application-token-action@dc0413987a085fa17d19df9e47d4677cf81ffef3
+        with:
+          application_id: ${{ secrets.ID_CREATELABELBOT }}
+          application_private_key: ${{ secrets.PEM_CREATELABELBOT }}
+
+      # More info: https://github.com/actions/checkout.
+      - name: Checkout & Authentication
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f
+        with:
+          token: ${{ steps.get_token.outputs.token }}
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Creation de labels
+        uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a
+        with:
+          delete-other-labels: true
+          config-file: "https://raw.githubusercontent.com/wr-projects/github-template/main/.github/config/workflows/create-labels.yml"
+          #token: ${{ steps.get_token.outputs.token }}

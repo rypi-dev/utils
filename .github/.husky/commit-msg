@@ -1,0 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+commitlint -E HUSKY_GIT_PARAMS
+
+npx --no -- commitlint --edit "$1"
+
+SIGNATURE="Signed-off-by: `git config --global --get user.name` <`git config --global --get user.email`>"
+grep -qs "^${SIGNATURE}" "$1" || echo "${SIGNATURE}" >> "$1"

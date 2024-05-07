@@ -1,0 +1,25 @@
+name: audit
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+
+env:
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      # changer les versions par les hash
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3.0.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --prod

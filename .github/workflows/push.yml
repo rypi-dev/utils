@@ -1,0 +1,44 @@
+---
+name: Pipeline - Push
+on: push
+
+permissions:
+  actions: write
+  contents: read
+  pull-requests: read
+
+jobs:
+  gitguardian:
+    name: GitGuardian Scanner
+    runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.head_ref, 'dependabot/') }}
+
+    steps:
+      # More info: https://github.com/step-security/harden-runner.
+      - name: Harden Runner
+        id: harden_runner
+        uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.gitguardian.com:443
+            github.com:443
+
+      - name: Checkout & Authentication
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      # More info: https://github.com/GitGuardian/ggshield-action
+      - name: GitGuardian Scanner
+        uses: GitGuardian/gg-shield-action@e8eef84fc3419d2a7e7beb15ab96c95b3ce2da24
+        with:
+          args: -v --all-policies
+        env:
+          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
+          GITHUB_PUSH_BASE_SHA: ${{ github.event.before }}
+          GITHUB_PULL_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
