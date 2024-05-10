@@ -2,6 +2,7 @@
 import bundleSize from 'rollup-plugin-bundle-size'
 import { defineConfig, RollupOptions } from 'rollup'
 import dts from 'rollup-plugin-dts'
+import terser from '@rollup/plugin-terser'
 import esbuild from 'rollup-plugin-esbuild'
 
 const dist = (file: string): string => {
@@ -24,7 +25,7 @@ const bundle = (input: string, config: RollupOptions): RollupOptions => {
 
 const rollupConfigs: RollupOptions[] = [
 	bundle('index.ts', {
-		plugins: [esbuild()],
+		plugins: [esbuild(), terser()],
 		output: [
 			{ file: dist('index.js'), format: 'cjs' },
 			{ file: dist('index.mjs'), format: 'es' }
