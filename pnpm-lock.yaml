@@ -144,6 +144,10 @@ importers:
       prettier:
         specifier: '>=3.2.5'
         version: 3.2.5
+    devDependencies:
+      '@habbaz-dev/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
 
   packages/tsconfig: {}
 

@@ -1,7 +1,6 @@
 import path from 'node:path'
+
 import { conditional } from '../../shared/lib/eslint'
-import { readJson } from '../../shared/lib/fs'
-import { Jsconfig } from '../../shared/types'
 import { publicPresetNames } from '../types'
 import { Meta } from '../shared'
 import { Options } from '.'
@@ -11,14 +10,11 @@ interface Input {
 	meta: Meta
 }
 
-export function createAliasSettings({ options = {}, meta }: Input) {
-	const { alias: aliasOptions = {} } = options
-	const { root = meta.root, paths = {}, jsconfig = 'jsconfig.json' } = aliasOptions
+// https://www.npmjs.com/package/eslint-import-resolver-custom-alias
+// This plugin will help you configure eslint-plugin-import to allow customized alias and extensions.
 
-	const jsconfigJson = readJson<Jsconfig>(meta.root, jsconfig)
-
-	const useTsconfig = meta.presets.has(publicPresetNames.typescript)
-	const useJsconfig = Boolean(jsconfigJson)
+export const createAliasSettings = ({ options = {}, meta }: Input) => {
+	const { root = meta.root, paths = {} } = options
 
 	const alias = Object.entries(paths).reduce<Record<string, string>>((alias, [key, value]) => {
 		alias[key] = path.join(root, value)
@@ -27,17 +23,8 @@ export function createAliasSettings({ options = {}, meta }: Input) {
 
 	return {
 		'import/resolver': {
-			'eslint-import-resolver-custom-alias': {
-				alias,
-				extensions: meta.imports.extensions
-			},
-			...conditional.settings(useJsconfig, {
-				jsconfig: {
-					config: path.resolve(meta.root, jsconfig),
-					extensions: meta.imports.extensions
-				}
-			}),
-			...conditional.settings(useTsconfig, {
+			'eslint-import-resolver-custom-alias': { alias, extensions: meta.imports.extensions },
+			...conditional.settings(meta.presets.has(publicPresetNames.typescript), {
 				typescript: {
 					alwaysTryTypes: true,
 					project: meta.typescript.tsconfig

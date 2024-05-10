@@ -1,5 +1,7 @@
 import path from 'node:path'
+
 import { Linter } from 'eslint'
+
 import { compilePresets, Preset, presetExtend, presets, PRIORITY } from './presets'
 import { applyMode, mergeConfigs, Mode } from './shared/lib/eslint'
 import { applyModuleResolutionPatch } from './patch'
@@ -28,13 +30,13 @@ interface FinalOptions {
 	extend: Required<Options>['extend']
 }
 
-function finalizeOptions(options: Options): FinalOptions {
+const finalizeOptions = (options: Options): FinalOptions => {
 	const ownFinalOptions: FinalOptions = {
 		...options,
-		root: options.root || process.cwd(),
-		mode: options.mode || 'default',
-		presets: options.presets || [],
-		extend: options.extend || {}
+		root: options.root ?? process.cwd(),
+		mode: options.mode ?? 'default',
+		presets: options.presets ?? [],
+		extend: options.extend ?? {}
 	}
 
 	if (options.extends) {
@@ -53,7 +55,7 @@ function finalizeOptions(options: Options): FinalOptions {
 
 			extendedOptions = config[ESLintKitOptionsSymbol]
 		} else {
-			if (!options.extends[ESLintKitOptionsSymbol]) {
+			if (!Boolean(options.extends[ESLintKitOptionsSymbol])) {
 				throw new Error(`The config specified in "extends" is not produced by ESLint Kit`)
 			}
 
@@ -94,7 +96,7 @@ function finalizeOptions(options: Options): FinalOptions {
 	return ownFinalOptions
 }
 
-export function configure(options: Options) {
+export const configure = (options: Options) => {
 	const finalOptions = finalizeOptions(options)
 	const { root, mode, allowDebug, presets, extend } = finalOptions
 

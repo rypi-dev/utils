@@ -5,27 +5,24 @@ import { createAliasSettings } from './alias'
 import { createExtensionsRule } from './lib'
 
 export interface Options {
-	alias?: {
-		root?: string
-		paths?: Record<string, string>
-		jsconfig?: string
-	}
+	root?: string
+	paths?: Record<string, string>
 }
 
 export const imports = createPreset<Options>({
 	name: publicPresetNames.imports,
+
 	updateMeta: ({ meta }) => {
 		meta.imports.extensions.push(...EXTENSIONS.MISC)
 		meta.imports.extensions.push(...EXTENSIONS.JS)
 	},
+
 	compile: ({ options = {}, meta }) => {
 		return {
 			plugins: ['import'],
 			settings: {
 				'import/extensions': meta.imports.extensions,
-				'import/core-modules': [],
-				'import/ignore': ['\\.(scss|css|less|hbs|svg|json)$'],
-				'import/internal-regex': '^@types/',
+				'import/internal-regex': ['^@types/', '^@packages/'],
 				...createAliasSettings({ options, meta })
 			},
 			rules: {

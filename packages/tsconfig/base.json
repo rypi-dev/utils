@@ -15,6 +15,7 @@
     "noUnusedParameters": true,
 
     "strict": true,
+    "strictNullChecks": true,
     "strictPropertyInitialization": true,
 
     "allowUnusedLabels": false,

@@ -9,7 +9,7 @@ export const prettier = createPreset<Options>({
 		return {
 			plugins: ['prettier'],
 			rules: {
-				'prettier/prettier': options ? ['warn', options] : 'warn'
+				'prettier/prettier': options ? ['error', options] : 'error'
 			}
 		}
 	}

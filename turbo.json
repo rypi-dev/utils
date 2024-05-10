@@ -1,4 +1,9 @@
 {
-    "$schema": "https://turbo.build/schema.json",
-    "pipeline": {}
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "cache": true
+    },
+    "dev": {}
+  }
 }

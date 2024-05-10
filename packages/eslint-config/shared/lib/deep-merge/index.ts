@@ -28,7 +28,6 @@ function shallowMerge<A, B>(a: A, b: B): Merge<A, B> {
 	return merged as Merge<A, B>
 }
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
 export function deepMerge<A, B>(
 	a: A,
 	b: B,
@@ -52,7 +51,6 @@ export function deepMerge<A, B>(
 		const final: any = {}
 
 		for (const key of keys) {
-			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 			const path = basePath ? [basePath, key].join('.') : key
 			final[key] = deepMerge((a as any)[key], (b as any)[key], strategy, path as AllPaths<A, B>)
 		}

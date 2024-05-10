@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig/base.json",
+  "extends": "@habbaz-dev/tsconfig/base.json",
 
   "compilerOptions": {},
 
