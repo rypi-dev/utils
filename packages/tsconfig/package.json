@@ -1,7 +1,7 @@
 {
   "name": "@habbaz-dev/tsconfig",
   "description": "A collection of TS configs for Habbaz's repos",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "keywords": [
     "tsconfig",
     "typescript",
@@ -14,6 +14,7 @@
     "solid.json"
   ],
   "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
     "access": "public"
   }
 }

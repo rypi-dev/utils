@@ -1,7 +1,7 @@
 {
   "name": "@habbaz-dev/prettier-config",
   "description": "Default Prettier config for Habbaz's repositories",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "keywords": [
     "prettier",
     "config",
@@ -22,6 +22,7 @@
     "prettier": ">=3.2.5"
   },
   "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
     "access": "public"
   }
 }
