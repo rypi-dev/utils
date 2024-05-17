@@ -1,7 +1,7 @@
 {
   "name": "@habbaz-dev/tsconfig",
   "description": "A collection of TS configs for Habbaz's repos",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "keywords": [
     "tsconfig",
     "typescript",
