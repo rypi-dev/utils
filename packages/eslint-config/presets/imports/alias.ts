@@ -21,6 +21,8 @@ export const createAliasSettings = ({ options = {}, meta }: Input) => {
 		return alias
 	}, {})
 
+	console.log('hi')
+
 	return {
 		'import/resolver': {
 			'eslint-import-resolver-custom-alias': { alias, extensions: meta.imports.extensions },

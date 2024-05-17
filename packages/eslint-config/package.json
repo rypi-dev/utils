@@ -6,7 +6,8 @@
   "keywords": [
     "eslint",
     "config",
-    "habbaz-dev"
+    "habbaz-dev",
+    "utils"
   ],
   "files": [
     "dist"
@@ -17,7 +18,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "eslint --ext .ts .",
-    "dev": "rollup -w --no-watch.clearScreen --watch.include \"**/*.ts\" -c --configPlugin typescript",
+    "dev": "rollup -w --watch.include \"**/*.ts\" -c --configPlugin typescript",
     "build": "rollup -c --configPlugin typescript"
   },
   "dependencies": {

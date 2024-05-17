@@ -6,7 +6,8 @@
     "tsconfig",
     "typescript",
     "habbaz-dev",
-    "solid"
+    "solid",
+    "utils"
   ],
   "files": [
     "base.json",

@@ -16,6 +16,7 @@ const bundle = (input: string, config: RollupOptions): RollupOptions => {
 	return defineConfig({
 		...config,
 		input,
+
 		external: (id): boolean => {
 			return !/^[./]/.test(id)
 		},
@@ -28,7 +29,7 @@ const rollupConfigs: RollupOptions[] = [
 		plugins: [esbuild(), terser()],
 		output: [
 			{ file: dist('index.js'), format: 'cjs' },
-			{ file: dist('index.mjs'), format: 'es' }
+			{ file: dist('index.mjs'), sourcemap: isWatching, format: 'es' }
 		]
 	})
 ]
