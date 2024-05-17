@@ -1,0 +1,39 @@
+name: Versioning & Releasing
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  versioning:
+    if: github.repository == 'habbaz-dev/utils'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node_version: 20.x
+          registry-url: https://npm.pkg.github.com/
+          scope: '@habbaz-dev'
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Publish packages to GPR
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm run release
+          version: pnpm run version
+          commit: 'chore(packages): release next version'
+          title: 'chore(packages): new release candidate'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,7 +1,7 @@
 {
   "name": "@habbaz-dev/eslint-config",
   "description": "Default Eslint config for Habbaz's repositories",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "license": "MIT",
   "keywords": [
     "eslint",
@@ -16,6 +16,10 @@
   "module": "./dist/index.mjs",
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
   "scripts": {
     "lint": "eslint --ext .ts .",
     "dev": "rollup -w --watch.include \"**/*.ts\" -c --configPlugin typescript",
@@ -54,8 +58,5 @@
     "eslint": ">=8.44.0",
     "prettier": ">=3.0.0",
     "typescript": ">=5.4.0"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
