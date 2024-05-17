@@ -29,6 +29,8 @@ jobs:
           cache: 'pnpm'
           registry-url: https://npm.pkg.github.com/
           scope: '@habbaz-dev'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PKG_GITHUB_TOKEN }}
 
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
@@ -41,5 +43,3 @@ jobs:
           version: pnpm run version
           commit: 'chore(packages): release next version'
           title: 'chore(packages): new release candidate'
-        env:
-          GITHUB_TOKEN: ${{ secrets.PKG_GITHUB_TOKEN }}
