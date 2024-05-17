@@ -1,7 +1,7 @@
 {
   "name": "@habbaz-dev/prettier-config",
   "description": "Default Prettier config for Habbaz's repositories",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "keywords": [
     "prettier",
     "config",

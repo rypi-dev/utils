@@ -1,5 +1,11 @@
 # @habbaz-dev/tsconfig
 
+## 0.2.0
+
+### Minor Changes
+
+- Fix bad deployment to npm
+
 ## 0.1.0
 
 ### Minor Changes

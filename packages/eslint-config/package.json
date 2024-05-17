@@ -1,7 +1,7 @@
 {
   "name": "@habbaz-dev/eslint-config",
   "description": "Default Eslint config for Habbaz's repositories",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "keywords": [
     "eslint",
