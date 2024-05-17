@@ -11,6 +11,8 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
+    "version": "changeset version",
+    "release": "changeset publish",
     "precommit": "pnpm format && pnpm lint",
     "postinstall": "husky install"
   },
