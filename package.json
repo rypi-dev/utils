@@ -12,9 +12,8 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "init": "changeset init",
-    "prepublish": "changeset version && pnpm -r generate:version && git add -all",
+    "prepublish": "changeset add && changeset version",
     "publish": "changeset publish",
-    "publish": "",
     "precommit": "pnpm format && pnpm lint",
     "postinstall": "husky install"
   },
