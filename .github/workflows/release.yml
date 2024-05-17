@@ -35,7 +35,7 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       - name: Build packages
-        run pnpm run build
+        run: pnpm run build
 
       - name: Publish packages to GPR
         id: changesets
