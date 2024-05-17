@@ -1,7 +1,7 @@
 import { Linter } from 'eslint'
 
 import { mergeConfigs } from '../shared/lib/eslint'
-import { Jsconfig, PackageJson } from '../shared/types'
+import { PackageJson } from '../shared/types'
 import { PresetName } from './types'
 
 export interface Meta {
