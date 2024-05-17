@@ -32,7 +32,7 @@ jobs:
         run: |
           pnpm i --frozen-lockfile
           echo "@habbaz-dev:registry=https://npm.pkg.github.com" >> .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PKG_GITHUB_TOKEN }}" >> .npmrc
 
       - name: Publish packages to GPR
         id: changesets
