@@ -27,12 +27,11 @@ jobs:
         with:
           node_version: 20.x
           cache: 'pnpm'
+          registry-url: https://npm.pkg.github.com/
+          scope: '@habbaz-dev'
 
       - name: Install dependencies
-        run: |
-          pnpm i --frozen-lockfile
-          echo "@habbaz-dev:registry=https://npm.pkg.github.com" >> .npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PKG_GITHUB_TOKEN }}" >> .npmrc
+        run: pnpm i --frozen-lockfile
 
       - name: Publish packages to GPR
         id: changesets
@@ -43,4 +42,4 @@ jobs:
           commit: 'chore(packages): release next version'
           title: 'chore(packages): new release candidate'
         env:
-          GITHUB_TOKEN: ${{ secrets.PKG_GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
