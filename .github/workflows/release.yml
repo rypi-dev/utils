@@ -29,11 +29,11 @@ jobs:
           cache: 'pnpm'
           registry-url: https://npm.pkg.github.com/
           scope: '@habbaz-dev'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PKG_GITHUB_TOKEN }}
 
       - name: Publish packages to GPR
         id: changesets
