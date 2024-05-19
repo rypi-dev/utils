@@ -6,16 +6,17 @@ export const solidJS = createPreset({
   name: publicPresetNames.solidJS,
   compile: ({ meta }) => ({
     env: { browser: true },
-
+    plugins: ['solid'],
     parserOptions: {
       babelOptions: { presets: ['solid'] }, // ?
       ecmaFeatures: { jsx: true }
     },
 
-    plugins: ['solid'],
     extends: [
       'plugin:solid/recommended',
       ...conditional.extends(meta.presets.has(publicPresetNames.typescript), ['plugin:solid/typescript'])
-    ]
+    ],
+
+    rules: {}
   })
 })

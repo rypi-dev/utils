@@ -6,41 +6,40 @@ import terser from '@rollup/plugin-terser'
 import esbuild from 'rollup-plugin-esbuild'
 
 const dist = (file: string): string => {
-	return `dist/${file}`
+  return `dist/${file}`
 }
 
-// @ts-expect-error Property 'ROLLUP_WATCH' comes from an index signature, so it must be accessed with ['ROLLUP_WATCH'].ts(4111)
 const isWatching = process.env.ROLLUP_WATCH === 'true'
 
 const bundle = (input: string, config: RollupOptions): RollupOptions => {
-	return defineConfig({
-		...config,
-		input,
+  return defineConfig({
+    ...config,
+    input,
 
-		external: (id): boolean => {
-			return !/^[./]/.test(id)
-		},
-		plugins: [...[config.plugins], bundleSize()]
-	})
+    external: (id): boolean => {
+      return !/^[./]/.test(id)
+    },
+    plugins: [...[config.plugins], bundleSize()]
+  })
 }
 
 const rollupConfigs: RollupOptions[] = [
-	bundle('index.ts', {
-		plugins: [esbuild(), terser()],
-		output: [
-			{ file: dist('index.js'), format: 'cjs' },
-			{ file: dist('index.mjs'), sourcemap: isWatching, format: 'es' }
-		]
-	})
+  bundle('index.ts', {
+    plugins: [esbuild(), terser()],
+    output: [
+      { file: dist('index.js'), format: 'cjs' },
+      { file: dist('index.mjs'), sourcemap: isWatching, format: 'es' }
+    ]
+  })
 ]
 
 if (!isWatching) {
-	rollupConfigs.push(
-		bundle('index.ts', {
-			plugins: [dts()],
-			output: [{ file: dist('index.d.ts'), format: 'es' }]
-		})
-	)
+  rollupConfigs.push(
+    bundle('index.ts', {
+      plugins: [dts()],
+      output: [{ file: dist('index.d.ts'), format: 'es' }]
+    })
+  )
 }
 
 export default defineConfig(rollupConfigs)

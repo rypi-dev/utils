@@ -1,4 +1,5 @@
 import path from 'node:path'
+
 import { EXTENSIONS } from '../../shared'
 import { conditional } from '../../shared/lib/eslint'
 import { createExtensionsRule } from '../imports/lib'

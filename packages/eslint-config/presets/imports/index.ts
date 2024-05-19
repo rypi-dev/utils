@@ -5,46 +5,44 @@ import { createAliasSettings } from './alias'
 import { createExtensionsRule } from './lib'
 
 export interface Options {
-	root?: string
-	paths?: Record<string, string>
+  root?: string
+  paths?: Record<string, string>
 }
 
 export const imports = createPreset<Options>({
-	name: publicPresetNames.imports,
+  name: publicPresetNames.imports,
 
-	updateMeta: ({ meta }) => {
-		meta.imports.extensions.push(...EXTENSIONS.MISC)
-		meta.imports.extensions.push(...EXTENSIONS.JS)
-	},
+  updateMeta: ({ meta }) => {
+    meta.imports.extensions.push(...EXTENSIONS.MISC)
+    meta.imports.extensions.push(...EXTENSIONS.JS)
+  },
 
-	compile: ({ options = {}, meta }) => {
-		return {
-			plugins: ['import'],
-			settings: {
-				'import/extensions': meta.imports.extensions,
-				'import/internal-regex': ['^@types/', '^@packages/'],
-				...createAliasSettings({ options, meta })
-			},
-			rules: {
-				'import/no-unresolved': ['error', { commonjs: true, caseSensitive: true }],
-				'import/no-anonymous-default-export': 'error',
-				'import/export': 'error',
-				'import/no-mutable-exports': 'error',
-				'import/no-amd': 'error',
-				'import/first': 'error',
-				'import/no-duplicates': 'error',
-				'import/extensions': createExtensionsRule(meta.imports.extensions),
-				'import/newline-after-import': 'warn',
-				'import/no-webpack-loader-syntax': 'error',
-				'import/no-self-import': 'error',
-				'import/no-absolute-path': 'error',
-				'import/no-named-default': 'error',
-				'import/no-empty-named-blocks': 'error',
-				'import/no-cycle': 'off', // TODO: turn on when execution time became normal
-				// 'import/no-cycle': ['error', { maxDepth: Number.POSITIVE_INFINITY }],
-				'import/no-useless-path-segments': ['error', { commonjs: true, noUselessIndex: true }],
-				'import/order': ['error', { groups: ['builtin', 'external', 'internal'], 'newlines-between': 'always' }]
-			}
-		}
-	}
+  compile: ({ options = {}, meta }) => ({
+    plugins: ['import'],
+    settings: {
+      'import/extensions': meta.imports.extensions,
+      'import/internal-regex': ['^@types/', '^@packages/'],
+      ...createAliasSettings({ options, meta })
+    },
+    rules: {
+      'import/no-unresolved': ['error', { commonjs: true, caseSensitive: true }],
+      'import/no-anonymous-default-export': 'error',
+      'import/export': 'error',
+      'import/no-mutable-exports': 'error',
+      'import/no-amd': 'error',
+      'import/first': 'error',
+      'import/no-duplicates': 'error',
+      'import/extensions': createExtensionsRule(meta.imports.extensions),
+      'import/newline-after-import': 'warn',
+      'import/no-webpack-loader-syntax': 'error',
+      'import/no-self-import': 'error',
+      'import/no-absolute-path': 'error',
+      'import/no-named-default': 'error',
+      'import/no-empty-named-blocks': 'error',
+      'import/no-cycle': 'off', // TODO: turn on when execution time became normal
+      // 'import/no-cycle': ['error', { maxDepth: Number.POSITIVE_INFINITY }],
+      'import/no-useless-path-segments': ['error', { commonjs: true, noUselessIndex: true }],
+      'import/order': ['error', { groups: ['builtin', 'external', 'internal'], 'newlines-between': 'always' }]
+    }
+  })
 })
