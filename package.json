@@ -1,11 +1,10 @@
 {
-  "name": "@habbaz-dev/utils",
-  "description": "A collection of packages used across Habbaz repositories",
+  "name": "@rypi-dev/utils",
+  "description": "📦 A collection of packages used across RypîDev repositories",
+  "prettier": "@rypi-dev/prettier-config",
+  "workspaces": ["packages/*"],
+  "packageManager": "bun@1.2.0",
   "private": true,
-  "prettier": "@habbaz-dev/prettier-config",
-  "engines": {
-    "pnpm": ">=9.0.0"
-  },
   "scripts": {
     "cz": "git cz",
     "dev": "turbo run dev",
@@ -22,9 +21,9 @@
     "@wr-projects/commitizen-config": "^0.0.3",
     "@wr-projects/commitlint-config": "^0.0.2",
     "eslint-config-turbo": "^1.13.3",
-    "@habbaz-dev/prettier-config": "workspace:*",
-    "@habbaz-dev/eslint-config": "workspace:*",
-    "@habbaz-dev/tsconfig": "workspace:*",
+    "@rypi-dev/prettier-config": "workspace:*",
+    "@rypi-dev/eslint-config": "workspace:*",
+    "@rypi-dev/tsconfig": "workspace:*",
     "turbo": "latest",
     "eslint": "^8.44.0",
     "prettier": "^3.2.5",

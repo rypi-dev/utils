@@ -1,4 +1,4 @@
-# @habbaz-dev/eslint-config
+# @rypi-dev/eslint-config
 
 ## 1.0.0
 

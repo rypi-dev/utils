@@ -1,4 +1,4 @@
-# @habbaz-dev/prettier-config
+# @rypi-dev/prettier-config
 
 ## 1.0.0
 

@@ -1,12 +1,12 @@
 {
-  "name": "@habbaz-dev/eslint-config",
-  "description": "Default Eslint config for Habbaz's repositories",
+  "name": "@rypi-dev/eslint-config",
+  "description": "Default Eslint config for RypiDev's repositories",
   "version": "1.0.0",
   "license": "MIT",
   "keywords": [
     "eslint",
     "config",
-    "habbaz-dev",
+    "rypi-dev",
     "utils"
   ],
   "files": [

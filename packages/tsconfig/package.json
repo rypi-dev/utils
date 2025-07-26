@@ -1,11 +1,11 @@
 {
-  "name": "@habbaz-dev/tsconfig",
-  "description": "A collection of TS configs for Habbaz's repos",
+  "name": "@rypi-dev/tsconfig",
+  "description": "A collection of TS configs for RypiDev's repos",
   "version": "1.0.0",
   "keywords": [
     "tsconfig",
     "typescript",
-    "habbaz-dev",
+    "rypi-dev",
     "solid",
     "utils"
   ],

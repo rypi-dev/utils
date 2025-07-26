@@ -134,7 +134,7 @@ jobs:
         uses: pineapplelol/emojify-pr-title@a380b02ff04e737a60066bcd0a8c45f1f7a1a709
         with:
           use-emoji-map: true
-          emoji-map: "https://raw.githubusercontent.com/habbaz-dev/github-template/main/.github/config/workflows/emoji-mapping.json"
+          emoji-map: "https://raw.githubusercontent.com/rypi-dev/github-template/main/.github/config/workflows/emoji-mapping.json"
           require-space: true
 
   # More info: https://github.com/hiwelo/new-dependencies-action

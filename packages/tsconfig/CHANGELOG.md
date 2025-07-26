@@ -1,4 +1,4 @@
-# @habbaz-dev/tsconfig
+# @rypi-dev/tsconfig
 
 ## 1.0.0
 

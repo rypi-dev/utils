@@ -1,11 +1,11 @@
 {
-  "name": "@habbaz-dev/prettier-config",
-  "description": "Default Prettier config for Habbaz's repositories",
+  "name": "@rypi-dev/prettier-config",
+  "description": "Default Prettier config for RypîDev's repositories",
   "version": "1.0.0",
   "keywords": [
     "prettier",
     "config",
-    "habbaz-dev",
+    "rypi-dev",
     "utils"
   ],
   "files": [
@@ -16,7 +16,7 @@
     "lint": "prettier . --check --loglevel silent"
   },
   "devDependencies": {
-    "@habbaz-dev/tsconfig": "workspace:*"
+    "@rypi-dev/tsconfig": "workspace:*"
   },
   "peerDependencies": {
     "prettier": ">=3.2.5"

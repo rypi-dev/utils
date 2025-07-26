@@ -1,6 +1,6 @@
 ![](.github/assets/join.png)
 
-![./LICENSE](https://img.shields.io/github/license/habbaz-dev/github-template)
+![./LICENSE](https://img.shields.io/github/license/rypi-dev/github-template)
 
 # 🐰 Getting started
 
@@ -8,10 +8,12 @@ A set of packages/utilities as devDependencies for linting and formatting
 
 ## Table of contents
 
-- [Features](#✨-features)
-- [Usage](#📥-usage)
-  - [Development](#-development)
-  - [Releasing](#-releasing)
+- [🐰 Getting started](#-getting-started)
+  - [Table of contents](#table-of-contents)
+  - [✨ Features](#-features)
+  - [📥 Usage](#-usage)
+    - [Development](#development)
+    - [Releasing](#releasing)
 
 ## ✨ Features
 

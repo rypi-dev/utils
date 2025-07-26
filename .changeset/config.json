@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-  "changelog": ["@changesets/cli/changelog", { "repo": "habbaz-dev/utils" }],
+  "changelog": ["@changesets/cli/changelog", { "repo": "rypi-dev/utils" }],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

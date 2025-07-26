@@ -1,5 +1,5 @@
 {
-  "extends": "@habbaz-dev/tsconfig/base.json",
+  "extends": "@rypi-dev/tsconfig/base.json",
 
   "compilerOptions": {
     "target": "ESNext",
