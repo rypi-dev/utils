@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # changer les versions par les hash
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v3.0.0
       - uses: actions/setup-node@v4
         with:
